@@ -1,23 +1,21 @@
 # Antguy2008.github.io
-# 👋 Hey, ik ben Antguy2008
+# 👋 Hi there
 
-🎮 Game developer in wording  
-🤖 Arduino & robots  
-🌐 Websites met HTML / CSS / JavaScript  
+Welcome to my GitHub profile.
 
-Ik hou ervan om dingen te bouwen die *echt werken* — van games tot hardware.
+This account is used for experimenting, learning, and building projects related to programming, game development, hardware, and web technologies.
 
 ---
 
-## 🚀 Projecten
-- 🎮 Italian Meatball Clicker  
-- 🧟 Zombie Survival Game (Python)  
-- 🤖 Robotarm met Arduino & servo’s  
-- 🌐 GitHub Pages websites  
+## 🚀 Projects
+- Game development experiments  
+- Small Python projects  
+- Arduino & hardware projects  
+- Simple websites and tools  
 
 ---
 
-## 🛠️ Skills
+## 🛠️ Technologies & Tools
 - Python  
 - Unity (C#)  
 - Arduino  
@@ -26,13 +24,13 @@ Ik hou ervan om dingen te bouwen die *echt werken* — van games tot hardware.
 ---
 
 ## 📊 GitHub Stats
-![GitHub stats](https://github-readme-stats.vercel.app/api?username=Antguy2008&show_icons=true&theme=tokyonight)
+![GitHub stats](https://github-readme-stats.vercel.app/api?username=Antguy2008&show_icons=true)
 
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Antguy2008&layout=compact&theme=tokyonight)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Antguy2008&layout=compact)
 
 ---
 
-## 🌱 Wat ik nu leer
-- Betere game mechanics
-- Cleanere code
-- Grotere projecten structureren
+## 🌱 Currently
+- Learning new programming concepts  
+- Improving code quality  
+- Exploring different types of projects
