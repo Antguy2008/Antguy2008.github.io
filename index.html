@@ -3,79 +3,131 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3D4U</title>
+<title>3D4U – Webshop</title>
 
 <style>
+:root {
+  --bg: #0b1c24;
+  --card: rgba(255,255,255,0.08);
+  --accent: #00ffd5;
+  --accent2: #ff7e5f;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0f2027;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(120deg, #0f2027, #203a43);
   color: white;
 }
 
 header {
-  padding: 30px;
+  padding: 40px;
   text-align: center;
-  background: #111;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+}
+
+header h1 {
+  font-size: 2.8rem;
 }
 
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
   padding: 40px;
 }
 
 .product {
-  background: rgba(255,255,255,0.1);
-  padding: 20px;
-  border-radius: 12px;
+  background: var(--card);
+  border-radius: 18px;
+  padding: 25px;
   text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
+}
+
+.product:hover {
+  transform: translateY(-8px);
+}
+
+.product h2 {
+  margin: 10px 0;
 }
 
 .product button {
-  margin-top: 10px;
-  padding: 10px 20px;
+  margin-top: 15px;
+  padding: 12px 25px;
   border: none;
-  border-radius: 20px;
+  border-radius: 30px;
   cursor: pointer;
-  background: #ff7e5f;
-  color: white;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  color: black;
   font-weight: bold;
+  font-size: 1rem;
 }
 
 .cart {
-  background: #111;
-  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 20px;
+  margin-bottom: 40px;
 }
 
 .cart-item {
-  display: flex;
-  justify-content: space-between;
-  margin: 5px 0;
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  gap: 10px;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.cart-item button {
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.qty-btn {
+  background: var(--accent);
+  color: black;
+}
+
+.remove-btn {
+  background: #ff4c4c;
+  color: white;
 }
 
 .checkout {
-  margin-top: 20px;
-  background: rgba(255,255,255,0.08);
-  padding: 20px;
-  border-radius: 12px;
+  margin-top: 30px;
+  background: var(--card);
+  padding: 25px;
+  border-radius: 16px;
 }
 
 input, textarea {
   width: 100%;
   padding: 10px;
-  margin: 8px 0;
+  margin: 6px 0;
   border-radius: 8px;
   border: none;
 }
 
 .checkout button {
-  padding: 12px 30px;
+  margin-top: 10px;
+  padding: 14px;
+  width: 100%;
   border: none;
   border-radius: 30px;
-  background: #00ffcc;
+  background: var(--accent);
   color: black;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
 }
@@ -84,8 +136,8 @@ input, textarea {
 <body>
 
 <header>
-  <h1>🛒 3D4U Webshop</h1>
-  <p>Hosted on GitHub Pages</p>
+  <h1>🛒 3D4U</h1>
+  <p>Professional GitHub Pages Webshop</p>
 </header>
 
 <section class="products">
@@ -120,7 +172,6 @@ input, textarea {
     onsubmit="prepareOrder()"
   >
     <h2>🧾 Checkout</h2>
-
     <input type="text" name="name" placeholder="Your name" required>
     <input type="email" name="email" placeholder="Your email" required>
     <textarea name="address" placeholder="Shipping address" required></textarea>
@@ -134,32 +185,57 @@ input, textarea {
 
 <script>
 let cart = [];
-let total = 0;
 
 function addToCart(name, price) {
-  cart.push({name, price});
-  total += price;
+  const item = cart.find(i => i.name === name);
+  if (item) item.qty++;
+  else cart.push({ name, price, qty: 1 });
   renderCart();
 }
 
 function renderCart() {
   const container = document.getElementById("cart-items");
   container.innerHTML = "";
+  let total = 0;
 
-  cart.forEach(item => {
+  cart.forEach((item, index) => {
+    total += item.price * item.qty;
     const div = document.createElement("div");
     div.className = "cart-item";
-    div.innerHTML = `<span>${item.name}</span><span>€${item.price.toFixed(2)}</span>`;
+    div.innerHTML = `
+      <span>${item.name}</span>
+      <span>€${item.price.toFixed(2)}</span>
+      <div>
+        <button class="qty-btn" onclick="changeQty(${index}, -1)">−</button>
+        ${item.qty}
+        <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+      </div>
+      <button class="remove-btn" onclick="removeItem(${index})">✕</button>
+    `;
     container.appendChild(div);
   });
 
   document.getElementById("total").innerText = total.toFixed(2);
 }
 
+function changeQty(index, delta) {
+  cart[index].qty += delta;
+  if (cart[index].qty <= 0) cart.splice(index, 1);
+  renderCart();
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  renderCart();
+}
+
 function prepareOrder() {
   let text = "";
+  let total = 0;
+
   cart.forEach(item => {
-    text += `${item.name} - €${item.price.toFixed(2)}\n`;
+    text += `${item.qty}x ${item.name} (€${item.price.toFixed(2)})\n`;
+    total += item.price * item.qty;
   });
 
   document.getElementById("orderField").value = text;
