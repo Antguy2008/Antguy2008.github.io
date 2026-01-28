@@ -56,8 +56,18 @@ header {
 }
 
 .checkout {
-  text-align: center;
   margin-top: 20px;
+  background: rgba(255,255,255,0.08);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: none;
 }
 
 .checkout button {
@@ -74,27 +84,27 @@ header {
 <body>
 
 <header>
-  <h1>🛒Webshop</h1>
+  <h1>🛒 3D4U Webshop</h1>
   <p>Hosted on GitHub Pages</p>
 </header>
 
 <section class="products">
   <div class="product">
     <h2>Fidget Joystick</h2>
-    <p>€3,00</p>
-    <button onclick="addToCart('Fidget Joystick', 3,00)">Add to cart</button>
+    <p>€3.00</p>
+    <button onclick="addToCart('Fidget Joystick', 3.00)">Add to cart</button>
   </div>
 
   <div class="product">
     <h2>Fidget Fish</h2>
-    <p>€3,50</p>
-    <button onclick="addToCart('Fidget Fish', 3,50)">Add to cart</button>
+    <p>€3.50</p>
+    <button onclick="addToCart('Fidget Fish', 3.50)">Add to cart</button>
   </div>
 
   <div class="product">
     <h2>Fidget Knife</h2>
-    <p>€4</p>
-    <button onclick="addToCart('Fidget Knife', 4,00)">Add to cart</button>
+    <p>€4.00</p>
+    <button onclick="addToCart('Fidget Knife', 4.00)">Add to cart</button>
   </div>
 </section>
 
@@ -103,9 +113,23 @@ header {
   <div id="cart-items"></div>
   <h3>Total: €<span id="total">0.00</span></h3>
 
-  <div class="checkout">
-    <button onclick="checkout()">Checkout (Demo)</button>
-  </div>
+  <form
+    class="checkout"
+    method="POST"
+    action="https://formspree.io/f/YOUR_FORM_ID"
+    onsubmit="prepareOrder()"
+  >
+    <h2>🧾 Checkout</h2>
+
+    <input type="text" name="name" placeholder="Your name" required>
+    <input type="email" name="email" placeholder="Your email" required>
+    <textarea name="address" placeholder="Shipping address" required></textarea>
+
+    <input type="hidden" name="order" id="orderField">
+    <input type="hidden" name="total" id="totalField">
+
+    <button type="submit">Send Order</button>
+  </form>
 </section>
 
 <script>
@@ -132,12 +156,14 @@ function renderCart() {
   document.getElementById("total").innerText = total.toFixed(2);
 }
 
-function checkout() {
-  alert(
-    "This is a DEMO checkout.\n\n" +
-    "Total: €" + total.toFixed(2) +
-    "\n\nIn a real shop, this button would redirect to Stripe or PayPal."
-  );
+function prepareOrder() {
+  let text = "";
+  cart.forEach(item => {
+    text += `${item.name} - €${item.price.toFixed(2)}\n`;
+  });
+
+  document.getElementById("orderField").value = text;
+  document.getElementById("totalField").value = total.toFixed(2);
 }
 </script>
 
