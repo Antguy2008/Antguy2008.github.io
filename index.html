@@ -1,183 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CodeGround</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo Webshop</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f2027;
+  color: white;
+}
 
-    body {
-      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
-      color: white;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+header {
+  padding: 30px;
+  text-align: center;
+  background: #111;
+}
 
-    header {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 40px;
+}
 
-    header h1 {
-      font-size: 4rem;
-      animation: fadeIn 2s ease forwards;
-    }
+.product {
+  background: rgba(255,255,255,0.1);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
 
-    header p {
-      margin-top: 20px;
-      font-size: 1.3rem;
-      opacity: 0;
-      animation: fadeIn 2s ease forwards;
-      animation-delay: 1s;
-    }
+.product button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background: #ff7e5f;
+  color: white;
+  font-weight: bold;
+}
 
-    .scroll {
-      margin-top: 60px;
-      font-size: 0.9rem;
-      opacity: 0.7;
-      animation: float 2s infinite ease-in-out;
-    }
+.cart {
+  background: #111;
+  padding: 20px;
+}
 
-    section {
-      padding: 80px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
 
-    .card {
-      background: rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 30px;
-      margin-bottom: 30px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      transform: translateY(40px);
-      opacity: 0;
-      transition: all 0.8s ease;
-    }
+.checkout {
+  text-align: center;
+  margin-top: 20px;
+}
 
-    .card.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .card h2 {
-      margin-bottom: 10px;
-    }
-
-    /* 🔘 INTERACTIVE BUTTONS */
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 28px;
-      font-size: 1rem;
-      font-weight: bold;
-      color: white;
-      background: linear-gradient(90deg, #ff7e5f, #feb47b);
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      text-decoration: none;
-    }
-
-    .btn:hover {
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    }
-
-    .btn:active {
-      transform: translateY(0) scale(0.98);
-      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      opacity: 0.6;
-      font-size: 0.9rem;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
-    }
-  </style>
+.checkout button {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  background: #00ffcc;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
 
-  <header>
-    <h1>Welcome</h1>
-    <p>CodeGround</p>
-    <div class="scroll">↓ scroll down ↓</div>
-  </header>
+<header>
+  <h1>🛒 Demo Webshop</h1>
+  <p>Hosted on GitHub Pages</p>
+</header>
 
-  <section>
-    <div class="card">
-      <h2>🚀 About</h2>
-      <p>
-        This website is hosted on GitHub Pages.
-        It is built with HTML, CSS, and JavaScript.
-      </p>
-      <a class="btn" href="#projects">View Projects</a>
-    </div>
+<section class="products">
+  <div class="product">
+    <h2>3D Printed Fidget</h2>
+    <p>€4.99</p>
+    <button onclick="addToCart('Fidget', 4.99)">Add to cart</button>
+  </div>
 
-    <div class="card" id="projects">
-      <h2>🛠 Projects</h2>
-      <p>
-        Showcase your games, experiments, Arduino projects, and websites.
-      </p>
-      <button class="btn" onclick="alert('Imagine this opens a project!')">
-        Open Project
-      </button>
-    </div>
+  <div class="product">
+    <h2>Arduino Kit</h2>
+    <p>€14.99</p>
+    <button onclick="addToCart('Arduino Kit', 14.99)">Add to cart</button>
+  </div>
 
-    <div class="card">
-      <h2>🌍 Why GitHub Pages</h2>
-      <p>
-        Free hosting, fast loading, version control, and perfect integration with GitHub.
-      </p>
-      <button class="btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-        Back to Top
-      </button>
-    </div>
-  </section>
+  <div class="product">
+    <h2>Game Asset Pack</h2>
+    <p>€2.99</p>
+    <button onclick="addToCart('Asset Pack', 2.99)">Add to cart</button>
+  </div>
+</section>
 
-  <footer>
-    © 2026 • Powered by GitHub Pages
-  </footer>
+<section class="cart">
+  <h2>🛍 Cart</h2>
+  <div id="cart-items"></div>
+  <h3>Total: €<span id="total">0.00</span></h3>
 
-  <script>
-    const cards = document.querySelectorAll('.card');
+  <div class="checkout">
+    <button onclick="checkout()">Checkout (Demo)</button>
+  </div>
+</section>
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-        }
-      });
-    }, { threshold: 0.2 });
+<script>
+let cart = [];
+let total = 0;
 
-    cards.forEach(card => observer.observe(card));
-  </script>
+function addToCart(name, price) {
+  cart.push({name, price});
+  total += price;
+  renderCart();
+}
+
+function renderCart() {
+  const container = document.getElementById("cart-items");
+  container.innerHTML = "";
+
+  cart.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "cart-item";
+    div.innerHTML = `<span>${item.name}</span><span>€${item.price.toFixed(2)}</span>`;
+    container.appendChild(div);
+  });
+
+  document.getElementById("total").innerText = total.toFixed(2);
+}
+
+function checkout() {
+  alert(
+    "This is a DEMO checkout.\n\n" +
+    "Total: €" + total.toFixed(2) +
+    "\n\nIn a real shop, this button would redirect to Stripe or PayPal."
+  );
+}
+</script>
 
 </body>
 </html>
